@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
         themeMode: ThemeMode.dark,
         initialRoute: '/',
         routes: {
-          '/': (context) => LoginView(),
+          '/': (context) => TestView(),
           '/game': (context) => const MainView(),
         },
       ),

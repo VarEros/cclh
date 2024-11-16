@@ -63,13 +63,13 @@ class GameViewModel with ChangeNotifier {
   void _handleNewRound(data) {
     if(!amIJudge) {
       _hand.removeWhere((card) => card == _cardsPlayed.firstWhere((cp) => cp.playerId == _myId).card);
+      _hand.add(data['whiteCard']);
     }
     _cardsPlayed = [];
     _currentRound++;
     _currentBlackCard = data['blackCard'];
     _currentJudge = data['judge'];
-    _hand.add(data['whiteCard']);
-  
+
     _winnerSelected = false;
     notifyListeners();
   }

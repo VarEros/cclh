@@ -10,13 +10,30 @@ const TestView({ super.key });
     final players = ['player 1', 'player 2', 'player 3', 'player 4', 'player 5'];
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Cartas contra la Humanidad"),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const Text("Cartas contra la Humanidad"),
+            const Text('Round 1/5', textScaler: TextScaler.linear(0.7),)
+          ],
+        ),
         elevation: 30,
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
           children: [
+            // const Padding(
+            //   padding: EdgeInsets.symmetric(horizontal: 40.0),
+            //   child: Row(
+            //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //     children: [
+            //       Text('eros', textScaler: TextScaler.linear(1.7)),
+            //       Text('Round 1/5', textScaler: TextScaler.linear(1.7))
+            //     ],
+            //   ),
+            // ),
+            // const SizedBox(height: 20,),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [

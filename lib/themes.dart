@@ -25,11 +25,11 @@ final darkTheme = ThemeData(
   fontFamily: GoogleFonts.josefinSans().fontFamily,
   colorScheme: darkScheme,
   appBarTheme: AppBarTheme(
-    centerTitle: true, 
+    // centerTitle: true, 
     titleTextStyle: TextStyle(
       fontFamily: GoogleFonts.bebasNeue().fontFamily,
       fontSize: 40,
-      letterSpacing: 10,
+      letterSpacing: 5,
       color: darkScheme.onSurface,
     )
   ),
@@ -45,12 +45,6 @@ final darkTheme = ThemeData(
         }
         return null;
       }),
-      // foregroundColor: WidgetStateProperty.resolveWith((states) {
-      //   if (states.contains(WidgetState.hovered)) {
-      //     return darkScheme.onPrimary;
-      //   }
-      //   return null;
-      // }),
     ),
   ),
   inputDecorationTheme: const InputDecorationTheme(border: OutlineInputBorder()),
