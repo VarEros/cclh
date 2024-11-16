@@ -3,10 +3,8 @@ import 'package:cclh/themes.dart';
 import 'package:cclh/viewmodels/game_viewmodel.dart';
 import 'package:cclh/views/game_view.dart';
 import 'package:cclh/views/login_view.dart';
-import 'package:cclh/views/select_view.dart';
 import 'package:cclh/views/test_view.dart';
 import 'package:cclh/views/waiting_view.dart';
-import 'package:cclh/views/winner_view.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -33,25 +31,31 @@ class MyApp extends StatelessWidget {
         initialRoute: '/',
         routes: {
           '/': (context) => LoginView(),
-          '/game': (context) => const GameView(),
+          '/game': (context) => const MainView(),
         },
       ),
     );
   }
 }
 
-class Main extends StatelessWidget {
-const Main({ super.key });
+class MainView extends StatelessWidget {
+const MainView({ super.key });
 
   @override
   Widget build(BuildContext context){
     final gameViewModel = Provider.of<GameViewModel>(context);
     
-    return 
-    gameViewModel.cardsPlayed.isNotEmpty ?
-    const WinnerView() : 
-    gameViewModel.roundStarted ?
-    const SelectView() :
-    const WaitingView();
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Cartas contra la Humanidad"),
+        elevation: 30,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: gameViewModel.gameStarted ?
+          const GameView() :
+          const WaitingView()
+      )
+    );
   }
 }

@@ -13,7 +13,8 @@ class GameViewModel with ChangeNotifier {
   String? _currentJudge;     // Juez actual
   int _currentRound = 0;
   bool _gameStarted = false;
-  bool _roundStarted = false;
+  bool _winnerSelected = false;
+  bool _playedCard = false;
   String? _myId;
 
   // Getters para acceder al estado desde la UI
@@ -23,9 +24,11 @@ class GameViewModel with ChangeNotifier {
   String? get currentBlackCard => _currentBlackCard;
   String? get currentJudge => _currentJudge;
   int get currentRound => _currentRound;
-  bool get roundStarted => _roundStarted;
+  bool get winnerSelected => _winnerSelected;
   bool get gameStarted => _gameStarted;
   bool get amIJudge => _myId==_currentJudge;
+  bool get playedCard => _playedCard;
+
 
   String getPlayerName(String playerId) => _players.firstWhere((player) => player.id == playerId).name;
 
@@ -57,13 +60,17 @@ class GameViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-    void _handleNewRound(data) {
+  void _handleNewRound(data) {
+    if(!amIJudge) {
+      _hand.removeWhere((card) => card == _cardsPlayed.firstWhere((cp) => cp.playerId == _myId).card);
+    }
     _cardsPlayed = [];
     _currentRound++;
     _currentBlackCard = data['blackCard'];
     _currentJudge = data['judge'];
+    _hand.add(data['whiteCard']);
   
-    _roundStarted = true;
+    _winnerSelected = false;
     notifyListeners();
   }
 
@@ -78,9 +85,12 @@ class GameViewModel with ChangeNotifier {
   }
 
   void _handleRoundWinner(data) {
-    _roundStarted = false;
-    String winningPlayerId = data['winningPlayerId'] as String;
+    _winnerSelected = true;
+    _playedCard = false;
+
+    String winningPlayerId = data;
     _cardsPlayed.firstWhere((card) => card.playerId == winningPlayerId).isWinner = true;
+    _players.firstWhere((player) => player.id == winningPlayerId).points++;
     // Actualiza el estado del juego según el ganador y reinicia para una nueva ronda
     notifyListeners();
   }
@@ -113,7 +123,9 @@ class GameViewModel with ChangeNotifier {
   }
 
   void playCard(String cardText) {
+    _playedCard = true;
     _socketService.playCard(cardText);
+    notifyListeners();
   }
 
   void selectWinner(String winningPlayerId) {

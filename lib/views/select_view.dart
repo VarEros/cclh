@@ -10,69 +10,55 @@ class SelectView extends StatefulWidget {
 }
 
 class _SelectViewState extends State<SelectView> {
-  int selectedIndex = 0;
+  int selectedIndex = -1;
   String selectedCard = '';
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     final gameViewModel = Provider.of<GameViewModel>(context);
     
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Selecciona tu carta"),
-      ),
-      body: gameViewModel.roundStarted ? Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            const Text(
-              "Carta Negra:",
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 10),
-            Text(
-              gameViewModel.currentBlackCard!,  // Mostrar la carta negra actual
-              style: const TextStyle(fontSize: 18),
-              textAlign: TextAlign.center,
-            ),
-            !gameViewModel.amIJudge ? Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(height: 30),
-                const Text(
-                  "Tu mano:",
-                  style: TextStyle(fontSize: 20),
-                ),
-                SizedBox(
-                  height: 300,
-                  child: ListView.builder(
-                    itemCount: gameViewModel.hand.length,
-                    itemBuilder: (context, index) {
-                      final card = gameViewModel.hand[index];
-                      return ListTile(
-                        title: Text(card),
-                        onTap: () {
-                          setState(() => selectedIndex = index);
-                          selectedCard = card;
-                        },
-                        selected: index == selectedIndex,
-                        selectedColor: Colors.cyan,
-                      );
-                    },
-                  ),
-                ),
-                const SizedBox(height: 30),
-                FilledButton(
-                  onPressed: selectedIndex == 0 ? null : () {
-                    gameViewModel.playCard(selectedCard);  // Enviar la carta jugada
+    return Expanded(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          const Text(
+            "Tu mazo",
+            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(height: 20),
+          Expanded(
+            child: ListView.separated(
+              shrinkWrap: true,
+              separatorBuilder: (BuildContext context, int index) =>  Divider(height: 10, color: colorScheme.surface),
+              itemCount: gameViewModel.hand.length,
+              itemBuilder: (context, index) {
+                final card = gameViewModel.hand[index];
+                return ListTile(
+                  shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10))),
+                  tileColor: gameViewModel.playedCard && selectedIndex == index ? colorScheme.surfaceContainerLow : colorScheme.surface,
+                  title: Text(card, textScaler: const TextScaler.linear(1.3)),
+                  onTap: () {
+                    setState(() => selectedIndex = index);
+                    selectedCard = card;
                   },
-                  child: const Text('Elegir carta'),
-                ),
-              ],
-            ) : const Text('Eres el juez'),
-          ],
-        ),
-      ) : const CircularProgressIndicator(),
+                  selected: index == selectedIndex,
+                  selectedColor: colorScheme.surfaceContainerHigh,
+                );
+              },
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(60.0),
+            child: OutlinedButton(
+              onPressed: selectedIndex == -1 || gameViewModel.playedCard ? null : () {
+                gameViewModel.playCard(selectedCard);  // Enviar la carta jugada
+              },
+              child: const Text('Elegir carta'),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

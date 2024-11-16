@@ -15,10 +15,11 @@ class LoginView extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Ingresar al Juego"),
+        title: const Text("Cartas contra la Humanidad"),
+        elevation: 30,
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(20.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -35,7 +36,7 @@ class LoginView extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 20),
-            ElevatedButton(
+            OutlinedButton(
               onPressed: () {
                 if (_nameController.text.isNotEmpty) {
                   gameViewModel.addPlayer(_nameController.text);
