@@ -15,6 +15,8 @@ class _GameViewState extends State<GameView> {
   @override
   Widget build(BuildContext context){
     final gameViewModel = Provider.of<GameViewModel>(context);
+    final colorScheme = Theme.of(context).colorScheme;
+
     return Column(
       children: [
         Row(
@@ -23,7 +25,10 @@ class _GameViewState extends State<GameView> {
             for(var player in gameViewModel.players) 
               Column(
                 children: [
-                  CircleAvatar(child: Text(player.points.toString())),
+                  CircleAvatar(
+                    backgroundColor: player.name == gameViewModel.myName ? null : colorScheme.surfaceContainer, foregroundColor: colorScheme.onSurface,
+                    child: Text(player.points.toString())
+                  ),
                   Text(player.name)
               ],
             )
@@ -31,8 +36,8 @@ class _GameViewState extends State<GameView> {
         ),
         const SizedBox(height: 20,),
         Card(
-          margin: const EdgeInsets.symmetric(horizontal: 60),
           elevation: 10,
+          color: colorScheme.primaryContainer,
           child: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Flex(

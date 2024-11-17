@@ -16,6 +16,7 @@ class GameViewModel with ChangeNotifier {
   bool _winnerSelected = false;
   bool _playedCard = false;
   String? _myId;
+  String? _myName;
 
   // Getters para acceder al estado desde la UI
   List<Player> get players => _players;
@@ -28,6 +29,7 @@ class GameViewModel with ChangeNotifier {
   bool get gameStarted => _gameStarted;
   bool get amIJudge => _myId==_currentJudge;
   bool get playedCard => _playedCard;
+  String? get myName => _myName;
 
 
   String getPlayerName(String playerId) => _players.firstWhere((player) => player.id == playerId).name;
@@ -54,8 +56,9 @@ class GameViewModel with ChangeNotifier {
     _currentBlackCard = data['blackCard'];
     _currentJudge = data['judge'];
     _hand = List<String>.from(data['hand']);
-  
-    print('nuevo juego iniciado');
+
+    _cardsPlayed = [];
+    _winnerSelected = false;
     _gameStarted = true;
     notifyListeners();
   }
@@ -111,6 +114,7 @@ class GameViewModel with ChangeNotifier {
 
   // Métodos para interactuar con el servicio de Socket.IO
   void addPlayer(String playerName) {
+    _myName = playerName;
     _socketService.addPlayer(playerName);
   }
 

@@ -24,7 +24,7 @@ class LoginView extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Text(
-              "Ingresa tu nombre",
+              "Introduce un nombre para comenzar",
               style: TextStyle(fontSize: 20),
             ),
             const SizedBox(height: 20),

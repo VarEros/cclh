@@ -28,34 +28,37 @@ class _SelectViewState extends State<SelectView> {
           ),
           const SizedBox(height: 20),
           Expanded(
-            child: ListView.separated(
-              shrinkWrap: true,
-              separatorBuilder: (BuildContext context, int index) =>  Divider(height: 10, color: colorScheme.surface),
-              itemCount: gameViewModel.hand.length,
-              itemBuilder: (context, index) {
-                final card = gameViewModel.hand[index];
-                return ListTile(
-                  shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10))),
-                  tileColor: gameViewModel.playedCard && selectedIndex == index ? colorScheme.surfaceContainerLow : colorScheme.surface,
-                  title: Text(card, textScaler: const TextScaler.linear(1.3)),
-                  onTap: () {
-                    setState(() => selectedIndex = index);
-                    selectedCard = card;
+            child: Card(
+              elevation: 10,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ListView.separated(
+                  shrinkWrap: true,
+                  separatorBuilder: (BuildContext context, int index) =>  Divider(height: 10, color: colorScheme.surfaceContainerLow),
+                  itemCount: gameViewModel.hand.length,
+                  itemBuilder: (context, index) {
+                    final card = gameViewModel.hand[index];
+                    return ListTile(
+                      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10))),
+                      tileColor: gameViewModel.playedCard && selectedIndex == index ? colorScheme.surfaceContainerHigh : colorScheme.surfaceContainerLow,
+                      title: Text(card, textScaler: const TextScaler.linear(1.3)),
+                      onTap: gameViewModel.playedCard ? null : () {
+                        setState(() => selectedIndex = index);
+                        selectedCard = card;
+                      },
+                      selected: index == selectedIndex,
+                      selectedColor: colorScheme.primary,
+                    );
                   },
-                  selected: index == selectedIndex,
-                  selectedColor: colorScheme.surfaceContainerHigh,
-                );
-              },
+                ),
+              ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(60.0),
-            child: OutlinedButton(
-              onPressed: selectedIndex == -1 || gameViewModel.playedCard ? null : () {
-                gameViewModel.playCard(selectedCard);  // Enviar la carta jugada
-              },
-              child: const Text('Elegir carta'),
-            ),
+          OutlinedButton(
+            onPressed: selectedIndex == -1 || gameViewModel.playedCard ? null : () {
+              gameViewModel.playCard(selectedCard);  // Enviar la carta jugada
+            },
+            child: const Text('Elegir carta'),
           ),
         ],
       ),

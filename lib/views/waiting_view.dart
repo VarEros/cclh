@@ -23,6 +23,7 @@ class WaitingView extends StatelessWidget {
             itemBuilder: (context, index) {
               final player = gameViewModel.players[index];
               return ListTile(
+                tileColor: Theme.of(context).colorScheme.surface,
                 title: Text(player.name),
               );
             },

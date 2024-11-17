@@ -45,6 +45,7 @@ final darkTheme = ThemeData(
         }
         return null;
       }),
+      foregroundColor: WidgetStatePropertyAll(darkScheme.onSurface)
     ),
   ),
   inputDecorationTheme: const InputDecorationTheme(border: OutlineInputBorder()),
