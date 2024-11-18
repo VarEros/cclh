@@ -63,7 +63,7 @@ class _WinnerViewState extends State<WinnerView> {
               }, 
               child: const Text('Elegir carta')
             ) :
-            gameViewModel.currentRound != 10 ? FilledButton(
+            gameViewModel.currentRound < 3 ? FilledButton(
               onPressed: () {
                 gameViewModel.startRound();
               }, 

@@ -48,13 +48,13 @@ const MainView({ super.key });
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: Row(
+        title:  MediaQuery.of(context).size.width >= 600 ? Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             const Text("Cartas contra la Humanidad", textWidthBasis: TextWidthBasis.longestLine,),
             Text('Round ${gameViewModel.currentRound}/10', textScaler: const TextScaler.linear(0.7))
           ],
-        ),
+        ) : Text('Round ${gameViewModel.currentRound}/10'),
         elevation: 30,
       ),
       body: Padding(

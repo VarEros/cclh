@@ -15,6 +15,7 @@ class GameViewModel with ChangeNotifier {
   bool _gameStarted = false;
   bool _winnerSelected = false;
   bool _playedCard = false;
+  bool _amIHost = false;
   String? _myId;
   String? _myName;
 
@@ -28,9 +29,9 @@ class GameViewModel with ChangeNotifier {
   bool get winnerSelected => _winnerSelected;
   bool get gameStarted => _gameStarted;
   bool get amIJudge => _myId==_currentJudge;
+  bool get amIHost => _amIHost;
   bool get playedCard => _playedCard;
   String? get myName => _myName;
-
 
   String getPlayerName(String playerId) => _players.firstWhere((player) => player.id == playerId).name;
 
@@ -104,6 +105,7 @@ class GameViewModel with ChangeNotifier {
   void _handleUpdatePlayers(data) {
     _myId ??= _socketService.socket.id; 
     _players = data.map((playerData) => Player.fromJson(playerData)).toList().cast<Player>();
+    if(_players.length == 1) _amIHost = true;
     print("Nuevo Jugador: ${_players.last.name}");
     notifyListeners();
   }

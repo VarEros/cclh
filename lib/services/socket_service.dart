@@ -16,7 +16,7 @@ class SocketService with ChangeNotifier {
   // Inicializa y conecta al servidor de Socket.IO
   void connect() {
     _socket = IO.io(
-      'http://localhost:3000', // Cambia esto a la URL del backend si es necesario
+      'http://192.168.1.11:3000', // Cambia esto a la URL del backend si es necesario
       IO.OptionBuilder()
           .setTransports(['websocket']) // Usa solo WebSocket para evitar problemas de CORS
           .enableAutoConnect()

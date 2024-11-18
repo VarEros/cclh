@@ -33,7 +33,7 @@ class WaitingView extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 60),
           child: FilledButton(
-            onPressed: gameViewModel.players.length < 3 ? null : () {
+            onPressed: gameViewModel.players.length < 3 || !gameViewModel.amIHost ? null : () {
               gameViewModel.startGame();
             },
             child: const Text("Empezar Partida"),
