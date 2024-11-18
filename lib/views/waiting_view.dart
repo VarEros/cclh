@@ -24,14 +24,15 @@ class WaitingView extends StatelessWidget {
               final player = gameViewModel.players[index];
               return ListTile(
                 tileColor: Theme.of(context).colorScheme.surface,
-                title: Text(player.name),
+                leading: const Icon(Icons.arrow_forward),
+                title: Text(player.name, textScaler: const TextScaler.linear(1.5),),
               );
             },
           ),
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 60),
-          child: OutlinedButton(
+          child: FilledButton(
             onPressed: gameViewModel.players.length < 3 ? null : () {
               gameViewModel.startGame();
             },

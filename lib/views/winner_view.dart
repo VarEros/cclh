@@ -56,18 +56,19 @@ class _WinnerViewState extends State<WinnerView> {
             ),
           ),
           if(gameViewModel.amIJudge) ... [
-            !gameViewModel.winnerSelected ? OutlinedButton(
+            const SizedBox(height: 30),
+            !gameViewModel.winnerSelected ? FilledButton(
               onPressed: selectedPlayerId.isEmpty ? null : () {
                 gameViewModel.selectWinner(selectedPlayerId);
               }, 
               child: const Text('Elegir carta')
             ) :
-            gameViewModel.currentRound != 10 ? OutlinedButton(
+            gameViewModel.currentRound != 10 ? FilledButton(
               onPressed: () {
                 gameViewModel.startRound();
               }, 
               child: const Text('Empezar siguiente ronda')
-            ) : OutlinedButton(
+            ) : FilledButton(
               onPressed: () {
                 gameViewModel.startGame();
               }, 

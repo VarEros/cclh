@@ -97,7 +97,7 @@ const TestView({ super.key });
                     ),
                   ),
                   const SizedBox(height: 30),
-                  OutlinedButton(
+                  FilledButton(
                     onPressed: () {
                       print('object');
                     }, 
@@ -106,13 +106,6 @@ const TestView({ super.key });
                 ],
               ),
             ),
-            // const SizedBox(width: 20,),
-            // OutlinedButton(
-            //   onPressed: () {
-            //     print('fsdf');
-            //   }, 
-            //   child: const Text('Empezar siguiente ronda')
-            // )
           ],
         ),
       ),

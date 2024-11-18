@@ -36,7 +36,7 @@ class LoginView extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 20),
-            OutlinedButton(
+            FilledButton(
               onPressed: () {
                 if (_nameController.text.isNotEmpty) {
                   gameViewModel.addPlayer(_nameController.text);

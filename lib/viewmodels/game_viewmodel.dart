@@ -57,6 +57,9 @@ class GameViewModel with ChangeNotifier {
     _currentJudge = data['judge'];
     _hand = List<String>.from(data['hand']);
 
+    for (var player in _players) {
+      player.points = 0;
+    }
     _cardsPlayed = [];
     _winnerSelected = false;
     _gameStarted = true;

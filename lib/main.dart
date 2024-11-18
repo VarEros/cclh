@@ -3,6 +3,7 @@ import 'package:cclh/themes.dart';
 import 'package:cclh/viewmodels/game_viewmodel.dart';
 import 'package:cclh/views/game_view.dart';
 import 'package:cclh/views/login_view.dart';
+import 'package:cclh/views/test_view.dart';
 import 'package:cclh/views/waiting_view.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -26,7 +27,7 @@ class MyApp extends StatelessWidget {
         title: 'Cartas contra la Humanidad',
         theme: lightTheme,
         darkTheme: darkTheme,
-        themeMode: ThemeMode.dark,
+        themeMode: ThemeMode.system,
         initialRoute: '/',
         routes: {
           '/': (context) => LoginView(),
@@ -46,10 +47,11 @@ const MainView({ super.key });
     
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Text("Cartas contra la Humanidad"),
+            const Text("Cartas contra la Humanidad", textWidthBasis: TextWidthBasis.longestLine,),
             Text('Round ${gameViewModel.currentRound}/10', textScaler: const TextScaler.linear(0.7))
           ],
         ),

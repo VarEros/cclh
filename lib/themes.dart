@@ -11,14 +11,44 @@ final darkScheme = ColorScheme.fromSeed(
 );
 
 final lightTheme = ThemeData(
-  fontFamily: GoogleFonts.kanit().fontFamily,
+  fontFamily: GoogleFonts.josefinSans().fontFamily,
   colorScheme: lightScheme,
   appBarTheme: AppBarTheme(
-    backgroundColor: lightScheme.onSurface,
-    foregroundColor: lightScheme.surface,
-    centerTitle: true,
+    // centerTitle: true, 
+    titleTextStyle: TextStyle(
+      fontFamily: GoogleFonts.bebasNeue().fontFamily,
+      fontSize: 40,
+      color: lightScheme.onSurface,
+    )
   ),
-  inputDecorationTheme: const InputDecorationTheme(border: OutlineInputBorder())
+  filledButtonTheme: FilledButtonThemeData(
+    style: ButtonStyle(
+      padding: const WidgetStatePropertyAll(EdgeInsets.all(30)), 
+      textStyle: WidgetStatePropertyAll(TextStyle(inherit: true,fontWeight: FontWeight.bold, fontSize: 20, fontFamily: GoogleFonts.josefinSans().fontFamily)),
+      shape: const WidgetStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(16)))),
+      minimumSize: const WidgetStatePropertyAll(Size.fromHeight(40)),
+      backgroundColor: WidgetStateProperty.resolveWith((states) {
+        if (states.contains(WidgetState.hovered)) {
+          return lightScheme.inversePrimary;
+        }
+        if (states.contains(WidgetState.disabled)) {
+          return null;
+        }
+        return lightScheme.primaryContainer;
+      }),
+      foregroundColor: WidgetStateProperty.resolveWith((states) {
+        if (states.contains(WidgetState.hovered)) {
+          return lightScheme.onSurface;
+        }
+        if (states.contains(WidgetState.disabled)) {
+          return null;
+        }
+        return lightScheme.primaryFixedDim;
+      }),
+    ),
+  ),
+  inputDecorationTheme: const InputDecorationTheme(border: OutlineInputBorder()),
+  listTileTheme: ListTileThemeData(tileColor: lightScheme.surfaceContainer)
 );
 
 final darkTheme = ThemeData(
@@ -29,11 +59,10 @@ final darkTheme = ThemeData(
     titleTextStyle: TextStyle(
       fontFamily: GoogleFonts.bebasNeue().fontFamily,
       fontSize: 40,
-      letterSpacing: 5,
       color: darkScheme.onSurface,
     )
   ),
-  outlinedButtonTheme: OutlinedButtonThemeData(
+  filledButtonTheme: FilledButtonThemeData(
     style: ButtonStyle(
       padding: const WidgetStatePropertyAll(EdgeInsets.all(30)), 
       textStyle: WidgetStatePropertyAll(TextStyle(inherit: true,fontWeight: FontWeight.bold, fontSize: 20, fontFamily: GoogleFonts.josefinSans().fontFamily)),
@@ -41,11 +70,22 @@ final darkTheme = ThemeData(
       minimumSize: const WidgetStatePropertyAll(Size.fromHeight(40)),
       backgroundColor: WidgetStateProperty.resolveWith((states) {
         if (states.contains(WidgetState.hovered)) {
-          return darkScheme.primaryContainer;
+          return darkScheme.inversePrimary;
         }
-        return null;
+        if (states.contains(WidgetState.disabled)) {
+          return null;
+        }
+        return darkScheme.primaryContainer;
       }),
-      foregroundColor: WidgetStatePropertyAll(darkScheme.onSurface)
+      foregroundColor: WidgetStateProperty.resolveWith((states) {
+        if (states.contains(WidgetState.hovered)) {
+          return darkScheme.onSurface;
+        }
+        if (states.contains(WidgetState.disabled)) {
+          return null;
+        }
+        return darkScheme.primaryFixedDim;
+      }),
     ),
   ),
   inputDecorationTheme: const InputDecorationTheme(border: OutlineInputBorder()),

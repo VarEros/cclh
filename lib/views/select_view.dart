@@ -54,7 +54,8 @@ class _SelectViewState extends State<SelectView> {
               ),
             ),
           ),
-          OutlinedButton(
+          const SizedBox(height: 30),
+          FilledButton(
             onPressed: selectedIndex == -1 || gameViewModel.playedCard ? null : () {
               gameViewModel.playCard(selectedCard);  // Enviar la carta jugada
             },
