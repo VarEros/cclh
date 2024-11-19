@@ -33,7 +33,7 @@ class GameViewModel with ChangeNotifier {
   bool get playedCard => _playedCard;
   String? get myName => _myName;
 
-  String getPlayerName(String playerId) => _players.firstWhere((player) => player.id == playerId).name;
+  String getPlayerName(String playerId) => _players.firstWhere((player) => player.id == playerId, orElse: () => Player(id: '', name: '', hand: [])).name;
 
   GameViewModel(this._socketService) {
     // Conectar el servicio de socket y establecer listeners para eventos

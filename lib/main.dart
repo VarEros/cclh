@@ -3,7 +3,6 @@ import 'package:cclh/themes.dart';
 import 'package:cclh/viewmodels/game_viewmodel.dart';
 import 'package:cclh/views/game_view.dart';
 import 'package:cclh/views/login_view.dart';
-import 'package:cclh/views/test_view.dart';
 import 'package:cclh/views/waiting_view.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
