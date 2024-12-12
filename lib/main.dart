@@ -51,9 +51,9 @@ const MainView({ super.key });
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             const Text("Cartas contra la Humanidad", textWidthBasis: TextWidthBasis.longestLine,),
-            Text('Round ${gameViewModel.currentRound}/10', textScaler: const TextScaler.linear(0.7))
+            Text('Round ${gameViewModel.currentRound}/20', textScaler: const TextScaler.linear(0.7))
           ],
-        ) : Text('Round ${gameViewModel.currentRound}/10'),
+        ) : Text('Round ${gameViewModel.currentRound}/20'),
         elevation: 30,
       ),
       body: Padding(
